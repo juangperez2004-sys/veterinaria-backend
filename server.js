@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 const SUPABASE_URL = 'https://wmbeasietnwr9rh7eng-giq.supabase.co';
@@ -30,33 +30,33 @@ async function supabaseFetch(tabla, id, method = 'GET', body) {
   return { res, data };
 }
 
-// MASCOTAS (5 endpoints)
+// MASCOTAS
 app.get('/api/mascotas', async (req, res) => {
   const { data } = await supabaseFetch('mascotas');
   res.json(data);
 });
 
 app.post('/api/mascotas', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('mascotas', null, 'POST', req.body);
+  const { data } = await supabaseFetch('mascotas', null, 'POST', req.body);
   res.status(201).json(data[0]);
 });
 
 app.get('/api/mascotas/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('mascotas', req.params.id);
-  r.ok ? res.json(data) : res.status(404).json({ error: 'No encontrado' });
+  const { data } = await supabaseFetch('mascotas', req.params.id);
+  res.json(data);
 });
 
 app.put('/api/mascotas/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('mascotas', req.params.id, 'PUT', req.body);
-  r.ok ? res.json(data[0]) : res.status(500).json({ error: 'Error' });
+  const { data } = await supabaseFetch('mascotas', req.params.id, 'PUT', req.body);
+  res.json(data[0]);
 });
 
 app.delete('/api/mascotas/:id', async (req, res) => {
-  const { res: r } = await supabaseFetch('mascotas', req.params.id, 'DELETE');
-  r.ok ? res.json({ message: 'Eliminado' }) : res.status(500).json({ error: 'Error' });
+  await supabaseFetch('mascotas', req.params.id, 'DELETE');
+  res.json({ message: 'Eliminado' });
 });
 
-// PROPIETARIOS (5 endpoints)
+// PROPIETARIOS
 app.get('/api/propietarios', async (req, res) => {
   const { data } = await supabaseFetch('propietarios');
   res.json(data);
@@ -68,21 +68,21 @@ app.post('/api/propietarios', async (req, res) => {
 });
 
 app.get('/api/propietarios/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('propietarios', req.params.id);
-  r.ok ? res.json(data) : res.status(404).json({ error: 'No encontrado' });
+  const { data } = await supabaseFetch('propietarios', req.params.id);
+  res.json(data);
 });
 
 app.put('/api/propietarios/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('propietarios', req.params.id, 'PUT', req.body);
-  r.ok ? res.json(data[0]) : res.status(500).json({ error: 'Error' });
+  const { data } = await supabaseFetch('propietarios', req.params.id, 'PUT', req.body);
+  res.json(data[0]);
 });
 
 app.delete('/api/propietarios/:id', async (req, res) => {
-  const { res: r } = await supabaseFetch('propietarios', req.params.id, 'DELETE');
-  r.ok ? res.json({ message: 'Eliminado' }) : res.status(500).json({ error: 'Error' });
+  await supabaseFetch('propietarios', req.params.id, 'DELETE');
+  res.json({ message: 'Eliminado' });
 });
 
-// CITAS (5 endpoints)
+// CITAS
 app.get('/api/citas', async (req, res) => {
   const { data } = await supabaseFetch('citas');
   res.json(data);
@@ -94,21 +94,21 @@ app.post('/api/citas', async (req, res) => {
 });
 
 app.get('/api/citas/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('citas', req.params.id);
-  r.ok ? res.json(data) : res.status(404).json({ error: 'No encontrado' });
+  const { data } = await supabaseFetch('citas', req.params.id);
+  res.json(data);
 });
 
 app.put('/api/citas/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('citas', req.params.id, 'PUT', req.body);
-  r.ok ? res.json(data[0]) : res.status(500).json({ error: 'Error' });
+  const { data } = await supabaseFetch('citas', req.params.id, 'PUT', req.body);
+  res.json(data[0]);
 });
 
 app.delete('/api/citas/:id', async (req, res) => {
-  const { res: r } = await supabaseFetch('citas', req.params.id, 'DELETE');
-  r.ok ? res.json({ message: 'Eliminado' }) : res.status(500).json({ error: 'Error' });
+  await supabaseFetch('citas', req.params.id, 'DELETE');
+  res.json({ message: 'Eliminado' });
 });
 
-// TRATAMIENTOS (5 endpoints)
+// TRATAMIENTOS
 app.get('/api/tratamientos', async (req, res) => {
   const { data } = await supabaseFetch('tratamientos');
   res.json(data);
@@ -120,21 +120,21 @@ app.post('/api/tratamientos', async (req, res) => {
 });
 
 app.get('/api/tratamientos/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('tratamientos', req.params.id);
-  r.ok ? res.json(data) : res.status(404).json({ error: 'No encontrado' });
+  const { data } = await supabaseFetch('tratamientos', req.params.id);
+  res.json(data);
 });
 
 app.put('/api/tratamientos/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('tratamientos', req.params.id, 'PUT', req.body);
-  r.ok ? res.json(data[0]) : res.status(500).json({ error: 'Error' });
+  const { data } = await supabaseFetch('tratamientos', req.params.id, 'PUT', req.body);
+  res.json(data[0]);
 });
 
 app.delete('/api/tratamientos/:id', async (req, res) => {
-  const { res: r } = await supabaseFetch('tratamientos', req.params.id, 'DELETE');
-  r.ok ? res.json({ message: 'Eliminado' }) : res.status(500).json({ error: 'Error' });
+  await supabaseFetch('tratamientos', req.params.id, 'DELETE');
+  res.json({ message: 'Eliminado' });
 });
 
-// VACUNAS (4 endpoints)
+// VACUNAS
 app.get('/api/vacunas', async (req, res) => {
   const { data } = await supabaseFetch('vacunas');
   res.json(data);
@@ -146,14 +146,13 @@ app.post('/api/vacunas', async (req, res) => {
 });
 
 app.put('/api/vacunas/:id', async (req, res) => {
-  const { data, res: r } = await supabaseFetch('vacunas', req.params.id, 'PUT', req.body);
-  r.ok ? res.json(data[0]) : res.status(500).json({ error: 'Error' });
+  const { data } = await supabaseFetch('vacunas', req.params.id, 'PUT', req.body);
+  res.json(data[0]);
 });
 
 app.delete('/api/vacunas/:id', async (req, res) => {
-  const { res: r } = await supabaseFetch('vacunas', req.params.id, 'DELETE');
-  r.ok ? res.json({ message: 'Eliminado' }) : res.status(500).json({ error: 'Error' });
+  await supabaseFetch('vacunas', req.params.id, 'DELETE');
+  res.json({ message: 'Eliminado' });
 });
 
-const PORT = 3002;
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+export default app;
