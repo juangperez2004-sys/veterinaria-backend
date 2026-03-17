@@ -6,7 +6,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 
 const SUPABASE_URL = 'https://wmbeasietnwr9rh7eng-giq.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_WmBE_asietNWr9rH7eNGGQ_liEIX2FM';
+const SUPABASE_KEY = 'sb_secret_ZhzIkaVGSdcfNyIvtv7OgA_WGkxOMRG';
 
 async function supabaseFetch(tabla, id, method = 'GET', body) {
   const url = id 
